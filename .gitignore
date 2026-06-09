@@ -1,0 +1,49 @@
+# Unreal Engine project files to ignore
+
+# Build artifacts
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+Build/*/Binaries/
+Build/*/Intermediate/
+
+# Visual Studio
+.vs/
+*.VC.db
+*.VC.opendb
+
+# Rider
+.idea/
+
+# Mac
+.DS_Store
+
+# Backup files
+*_Backup.uasset
+*_BuiltData.uasset
+
+# Logs
+*.log
+
+# Generated project files
+*.sln
+*.xcodeproj
+*.xcworkspace
+
+# Plugins build artifacts
+Plugins/*/Binaries/
+Plugins/*/Intermediate/
+
+# Auto-generated config
+Config/DefaultEditorPerProjectUserSettings.ini
+Config/DefaultEditorUserSettings.ini
+
+# Optional: Ignore local build settings
+Build/
+
+# Optional: Ignore crash reports
+Saved/Crashes/
+
+# Optional: Ignore autosaves
+Saved/Autosaves/
