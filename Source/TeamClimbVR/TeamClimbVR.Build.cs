@@ -9,11 +9,14 @@ public class TeamClimbVR : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
         PublicDependencyModuleNames.AddRange(new string[] {
-    "Core",
-    "CoreUObject",
-    "Engine",
-    "InputCore"
-});
+            "Core",
+            "CoreUObject",
+            "Engine",
+            "InputCore",
+            "UMG",          // Åö í«â¡
+            "Slate",        // Åö í«â¡
+            "SlateCore"     // Åö í«â¡
+        });
 
         PrivateDependencyModuleNames.AddRange(new string[] {  });
 
