@@ -4,38 +4,49 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/BoxComponent.h"
 #include "ATeleportTrigger.generated.h"
-
-class UBoxComponent;
 
 UCLASS()
 class TEAMCLIMBVR_API AATeleportTrigger : public AActor
 {
-	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
-	AATeleportTrigger();
+    GENERATED_BODY()
+
+public:
+    AATeleportTrigger();
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+    virtual void BeginPlay() override;
 
-	UFUNCTION()
-	void OnOverlapBegin(
-		UPrimitiveComponent* OverlappedComp,
-		AActor* OtherActor,
-		UPrimitiveComponent* OtherComp,
-		int32 OtherBodyIndex,
-		bool bFromSweep,
-		const FHitResult& SweepResult
-	);
+    UFUNCTION()
+    void OnOverlapBegin(
+        UPrimitiveComponent* OverlappedComp,
+        AActor* OtherActor,
+        UPrimitiveComponent* OtherComp,
+        int32 OtherBodyIndex,
+        bool bFromSweep,
+        const FHitResult& SweepResult
+    );
 
-public:	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite,Category="Teleport")
-	FName NextLevelName = "NextLevel";
+public:
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Teleport")
+    FName NextLevelName = "NextLevel";
 
-	UPROPERTY(VisibleAnywhere)
-	UBoxComponent* Box;
+    UPROPERTY(VisibleAnywhere)
+    UBoxComponent* Box;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Teleport")
+    float HandDistanceThreshold = 30.0f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Teleport")
+    bool bUseHandDistanceTrigger = false;
+
+    bool bReadyToCheckDistance = false;   // Žè‚ª‹ß‚Ã‚­‚Ü‚Å‘Ò‚Â
+    bool bTriggered = false;
+
+
+    virtual void Tick(float DeltaTime) override;
+
+    void CheckHandDistance();
+    void TriggerTeleport();
 };
