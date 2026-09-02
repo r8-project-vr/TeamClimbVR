@@ -1,10 +1,9 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/BoxComponent.h"
+#include "Components/AudioComponent.h"
 #include "ATeleportTrigger.generated.h"
 
 UCLASS()
@@ -41,12 +40,20 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Teleport")
     bool bUseHandDistanceTrigger = false;
 
-    bool bReadyToCheckDistance = false;   // éËÇ™ãﬂÇ√Ç≠Ç‹Ç≈ë“Ç¬
-    bool bTriggered = false;
+    // Åö å¯â âπçƒê∂óp
+    UPROPERTY(VisibleAnywhere)
+    UAudioComponent* AudioComponent;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Teleport")
+    USoundBase* SoundEffect;
+
+    bool bReadyToCheckDistance = false;
+    bool bTriggered = false;
 
     virtual void Tick(float DeltaTime) override;
 
     void CheckHandDistance();
     void TriggerTeleport();
+
+    void PlaySE();
 };

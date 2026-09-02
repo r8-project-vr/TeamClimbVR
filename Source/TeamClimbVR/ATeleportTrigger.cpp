@@ -2,6 +2,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Camera/PlayerCameraManager.h"
 #include "Components/BoxComponent.h"
+#include "Components/AudioComponent.h"
 
 AATeleportTrigger::AATeleportTrigger()
 {
@@ -9,6 +10,11 @@ AATeleportTrigger::AATeleportTrigger()
 
     Box = CreateDefaultSubobject<UBoxComponent>(TEXT("Box"));
     RootComponent = Box;
+
+    // ★ AudioComponent を追加
+    AudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("AudioComponent"));
+    AudioComponent->SetupAttachment(RootComponent);
+    AudioComponent->bAutoActivate = false;
 
     Box->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
     Box->SetCollisionObjectType(ECC_WorldStatic);
@@ -72,28 +78,28 @@ void AATeleportTrigger::CheckHandDistance()
         Right->GetComponentLocation()
     );
 
-    // ① まだ距離チェックを開始していない → 手が近いか確認
     if (!bReadyToCheckDistance)
     {
         if (Dist < HandDistanceThreshold)
         {
-            bReadyToCheckDistance = true;   // 手が近づいたのでチェック開始
+            bReadyToCheckDistance = true;
         }
-        return; // まだ離れ判定はしない
+        return;
     }
 
-    // ② 距離チェック開始後 → 離れたら発火
     if (Dist > HandDistanceThreshold)
     {
         TriggerTeleport();
     }
 }
 
-
 void AATeleportTrigger::TriggerTeleport()
 {
     if (bTriggered) return;
     bTriggered = true;
+
+    // ★ Teleport開始時に効果音を鳴らす
+    PlaySE();
 
     APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
     if (!PC) return;
@@ -119,3 +125,11 @@ void AATeleportTrigger::TriggerTeleport()
     );
 }
 
+void AATeleportTrigger::PlaySE()
+{
+    if (SoundEffect)
+    {
+        AudioComponent->SetSound(SoundEffect);
+        AudioComponent->Play();
+    }
+}
