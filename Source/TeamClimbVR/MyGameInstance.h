@@ -22,4 +22,6 @@ public:
     UPROPERTY(BlueprintReadWrite)
     int EnemyHitCount = 0;
 	
+    UFUNCTION(BlueprintCallable)
+    void ResetGameData();
 };
