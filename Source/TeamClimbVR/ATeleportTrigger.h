@@ -53,6 +53,7 @@ public:
     virtual void Tick(float DeltaTime) override;
 
     void CheckHandDistance();
+    UFUNCTION(BlueprintCallable)
     void TriggerTeleport();
 
     void PlaySE();
