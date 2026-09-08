@@ -12,6 +12,13 @@ void AGameResultManager::BeginPlay()
 {
     Super::BeginPlay();
 
+    UMyGameInstance* GameInstance = GetGameInstance<UMyGameInstance>();
+
+    if (GameInstance)
+    {
+        GameInstance->ResetGameData();
+    }
+
     StartTime = GetWorld()->GetTimeSeconds();
 
     UE_LOG(LogTemp, Warning, TEXT("START TIME: %f"), StartTime);
