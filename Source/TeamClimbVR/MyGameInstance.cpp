@@ -10,6 +10,8 @@ void UMyGameInstance::ResetGameData()
     UE_LOG(
         LogTemp,
         Warning,
-        TEXT("GAME DATA RESET")
+        TEXT("GAME DATA RESET - ClearTime: %f, EnemyHitCount: %d"),
+        ClearTime,
+        EnemyHitCount
     );
 }
